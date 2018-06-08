@@ -16,11 +16,15 @@ if ($_POST) {
     $errores = validar($_POST);
 
     if (empty($errores)) {
-        $usuario = crearArrayUsuario($_POST);
 
-        guardarUsuario($usuario);
-        var_dump('registro exitoso');
-        exit;
+		$errores = guardarImagen('archivo');
+		if (count($errores) == 0) {
+			$usuario = crearArrayUsuario($_POST,'archivo');
+	        guardarUsuario($usuario);
+	        var_dump('registro exitoso');
+	        exit;
+		}
+
     }
 }
 
@@ -93,9 +97,13 @@ if ($_POST) {
 		                </div>
 					</div>
 				</div>
+				<br><br><br>
+				<label for="foto">Subi tu fotito</label>
+				<input type="file" name="archivo" id="foto">
 
             <button class="btn btn-primary" type="submit">Enviar</button>
         </form>
 	  	</div>
+
    </body>
 </html>

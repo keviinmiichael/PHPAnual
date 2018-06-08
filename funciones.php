@@ -31,15 +31,16 @@ function validar($data){
     return $errores;
 }
 
-function crearArrayUsuario($data){
+function crearArrayUsuario($data,$nombredelinput){
+    $ext = pathinfo($_FILES[$nombredelinput]['name'], PATHINFO_EXTENSION);
     $usuario = [
         'id' => traerUltimoID(),
         'name' => $data['name'],
         'email' => $data['email'],
         'pais' => $data['pais'],
         'pass' => password_hash($data['pass'], PASSWORD_DEFAULT),
+        'src' => 'imagenes/'.traerUltimoID().'.'.$ext,
     ];
-
     return $usuario;
 }
 
@@ -90,6 +91,29 @@ function traerUltimoID(){
     return $ultimoID + 1;
 
 
+}
+
+function guardarImagen($nombreInput){
+    $errores = [];
+
+    if ($_FILES[$nombreInput]['error'] === UPLOAD_ERR_OK) {
+        $nombreDelArchivo = $_FILES[$nombreInput]['name'];
+        $ext = pathinfo($nombreDelArchivo, PATHINFO_EXTENSION);
+        $archivo = $_FILES[$nombreInput]['tmp_name'];
+
+        if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'png') {
+            $dondeEstoy = dirname(__FILE__);
+            $dondeLoVoyAGuardar = $dondeEstoy . '/imagenes/'. traerUltimoID().'.'.$ext;
+            move_uploaded_file($archivo, $dondeLoVoyAGuardar);
+        }else {
+            $errores[$nombreInput] = 'Che no estas subiendo algo con formato valido';
+        }
+
+    }else{
+        $errores[$nombreInput] = 'Che no estas subiendo nah';
+    }
+
+    return $errores;
 }
 
 ?>
