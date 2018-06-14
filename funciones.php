@@ -116,4 +116,11 @@ function guardarImagen($nombreInput){
     return $errores;
 }
 
+
+// function validarLogin($data){}
+
+// function loguear($usuario){}
+
+// function estaLogueado() {}
+
 ?>

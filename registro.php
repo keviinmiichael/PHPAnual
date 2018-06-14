@@ -3,7 +3,7 @@ require_once('funciones.php');
 	// Array de países para el foreach en el select
 	$paises = ['Argentina', 'Brasil', 'Colombia', 'Sin Mundial'];
 
-$name = '';
+// $name = '';
 $email = '';
 $pais = '';
 $errores = [];
@@ -54,7 +54,7 @@ if ($_POST) {
 					<div class="col-sm-6">
 						<div class="form-group <?= isset($errores['name']) ? 'has-error' : null ?>">
 							<label class="control-label">Nombre:</label>
-							<input type="text" class="form-control" name="name" value="<?=$name?>">
+							<input type="text" class="form-control" name="name" value="<?= isset($name) ? $name : '' ?>">
 						</div>
 					</div>
 					<div class="col-sm-6">
