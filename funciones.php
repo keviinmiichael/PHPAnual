@@ -1,4 +1,9 @@
 <?php
+session_start();
+
+if (isset($_COOKIE['id'])) {
+    loguear(traerPorID($_COOKIE['id']));
+}
 
 function validar($data){
     $errores = [];
@@ -116,11 +121,44 @@ function guardarImagen($nombreInput){
     return $errores;
 }
 
+function validarLogin($data){
+    $email = trim($data['email']);
+    $pass = trim($data['pass']);
+    $errores = [];
+    if ($email == '') {
+        $errores['email'] = 'Por favor completa el email';
+    }elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errores['email'] = 'Por favor completa el email con un formato valido';
+    }elseif (!$usuario = existeEmail($email)) {
+        $errores['email'] = 'credenciales invalidas';
+    }
+    if ($pass == '') {
+        $errores['pass'] = 'Por favor completa tu password';
+    }elseif (!password_verify($pass, $usuario['pass'])) {
+        $errores['pass'] = 'credenciales invalidas';
+    }
 
-// function validarLogin($data){}
+    return $errores;
+}
 
-// function loguear($usuario){}
+function loguear($usuario){
+    $_SESSION['id'] = $usuario['id'];
+}
 
-// function estaLogueado() {}
+function estaLogueado() {
+    return isset($_SESSION['id']);
+}
+
+function traerPorID($id) {
+    $usuarios = traerTodos();
+
+    foreach ($usuarios as $unUsuario) {
+        if ($id == $unUsuario['id']) {
+            return $unUsuario;
+        }
+
+    }
+    return false;
+}
 
 ?>

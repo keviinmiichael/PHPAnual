@@ -1,21 +1,33 @@
 <?php
-$usuario = readline('Dame tu nombre:');
+$numeroMagico = 789;
+
+$variable = 9;
+
+function mayor($numA,$numB,$numC = null){
+    global $numeroMagico;
+    if ($numC == null || !is_numeric($numC)) {
+        $numC = $numeroMagico;
+    }
+    if ($numA >= $numB && $numA >= $numC ) {
+        return $numA;
+    }elseif ($numB >= $numA && $numB >= $numC ) {
+        return $numB;
+    }elseif ($numC >= $numA && $numC >= $numB ) {
+        return $numC;
+    }
+}
 
 
-echo "Hola $usuario";
+function tabla($base, $limit = null){
+    $array = [];
+    global $numeroMagico;
+    if ($limit == null || !is_numeric($limit)) {
+        $limit = $numeroMagico;
+    }
+    for ($i=$base; $i <= $limit ; $i++) {
+        $array[] = $i;
+    }
+    return $array;
+}
 
-
-http://mercadolimbo.com/
-
-https://pioppa.com.ar/
-
-http://www.bandoneonabordo.com/
-
-http://www.chezmanu.com/es
-
-http://pol-ka.com/
-
-
-http://wrapbootstrap.com/preview/WB04C422K
-
-http://wrapbootstrap.com/preview/WB002S263
+echo mayor(1,3);

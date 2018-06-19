@@ -1,5 +1,9 @@
 <?php
 require_once('funciones.php');
+if (estaLogueado()) {
+	header('location:otrapagina.php');
+	exit;
+}
 	// Array de países para el foreach en el select
 	$paises = ['Argentina', 'Brasil', 'Colombia', 'Sin Mundial'];
 
@@ -18,7 +22,7 @@ if ($_POST) {
     if (empty($errores)) {
 
 		$errores = guardarImagen('archivo');
-		if (count($errores) == 0) {
+		if (empty($errores)) {
 			$usuario = crearArrayUsuario($_POST,'archivo');
 	        guardarUsuario($usuario);
 	        var_dump('registro exitoso');
@@ -98,6 +102,7 @@ if ($_POST) {
 					</div>
 				</div>
 				<br><br><br>
+				
 				<label for="foto">Subi tu fotito</label>
 				<input type="file" name="archivo" id="foto">
 

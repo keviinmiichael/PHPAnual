@@ -1,6 +1,6 @@
 <?php
 session_start();
-var_dump($_COOKIE['nombre']);
+var_dump($_COOKIE);
 echo "<br>";
 echo "<br>";
 var_dump($_SESSION);
